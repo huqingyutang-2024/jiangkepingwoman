@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>女性健康自检表</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            background: linear-gradient(to bottom, #ff4a73, #ffffff); 
+            margin: 0 15px 20px; /* 10px left, 30px bottom, 10px right margin */
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            margin: 0;
+            font-size: 25px;
+        }
+        img {
+            margin-top: 10px;
+            max-width: 100%; /* 图片最大宽度为父元素宽度的百分之百 */
+            height: auto; /* 高度自动调整以保持比例 */
+            /* 相对定位与 transform 居中代码 */
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -0%);
+        }
+        #symptomForm {
+            background-color: #fff;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            margin: 0 auto; /* Center the form horizontally */
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        table {
+            display: none;
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ccc;
+        }
+        table th, table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        table th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+        table td {
+            background-color: #fff;
+        }
+        .bottom-row {
+            flex: 1;
+        }
+        .details-button02 {
+            cursor: pointer;
+            background-color: #1777ff;
+            color: white;
+            border: none;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-top: 10px;
+            color: #ffffff;
+            border-radius: 20px;
+        }
+        .moda10 {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.9);
+            padding-top: 60px;
+        }  
+        .moda10-content {
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 700px;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #f1f1f1;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .moda10 img {
+            width: 100%;
+        }
+        #result-container {
+            margin: 0 auto;
+        }
+
+        @media screen and (max-width: 600px) {
+            #symptomForm {
+                width: 90%;
+            }
+        }
+                /* 悬浮按钮样式 */
+        .fixed-button {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            transform: translateY(-50%);
+            background: url('images/ds.jpg') center/cover;
+            border: 2px solid white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: 0.3s;
+			margin-right: 15px;
+        }
+
+        .fixed-button:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* 遮罩层 */
+        .popup-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1001;
+            display: none;
+        }
+
+        /* 弹窗容器 */
+        .popup-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 70%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            z-index: 1002;
+            display: none;
+        }
+
+        /* iframe样式 */
+        .popup-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+        }
+
+        /* 关闭按钮 */
+        .close-btn {
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            width: 40px;
+            height: 40px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            line-height: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+ <script>
+        // 设置目标日期
+        const targetDate = new Date('2025-07-16T00:00:00');
+        const currentDate = new Date();
+
+        if (currentDate > targetDate) {
+            // 若当前时间超过目标时间，跳转到指定页面
+            window.location.href = ''; // 替换为你要跳转的网页地址
+        }
+    </script>
+    <img src="images/kaitou.jpg" alt="自检表">
+    <form id="symptomForm">
+       <label><input type="checkbox" name="symptom" value="1、形体消瘦"> 1、形体消瘦</label>
+       <label><input type="checkbox" name="symptom" value="2、口燥咽干"> 2、口燥咽干</label>
+       <label><input type="checkbox" name="symptom" value="3、两颧潮红"> 3、两颧潮红</label>
+       <label><input type="checkbox" name="symptom" value="4、嘴巴起皮"> 4、嘴巴起皮</label>
+       <label><input type="checkbox" name="symptom" value="5、易饥饿"> 5、易饥饿</label>
+       <label><input type="checkbox" name="symptom" value="6、小便短黄"> 6、小便短黄</label>
+       <label><input type="checkbox" name="symptom" value="7、大便干结"> 7、大便干结</label>
+       <label><input type="checkbox" name="symptom" value="8、舌质红"> 8、舌质红</label>
+       <label><input type="checkbox" name="symptom" value="9、眼睛干涩"> 9、眼睛干涩</label>
+       <label><input type="checkbox" name="symptom" value="10、脚心发热"> 10、脚心发热</label>
+       <label><input type="checkbox" name="symptom" value="11、心口烦热"> 11、心口烦热</label>
+       <label><input type="checkbox" name="symptom" value="12、潮热"> 12、潮热</label>
+       <label><input type="checkbox" name="symptom" value="13、手足脱皮"> 13、手足脱皮</label>
+       <label><input type="checkbox" name="symptom" value="14、手心发热"> 14、手心发热</label>
+       <label><input type="checkbox" name="symptom" value="15、睡觉出汗"> 15、睡觉出汗</label>
+       <label><input type="checkbox" name="symptom" value="16、皮肤干燥"> 16、皮肤干燥</label>
+       <label><input type="checkbox" name="symptom" value="17、心慌心悸"> 17、心慌心悸</label>
+       <label><input type="checkbox" name="symptom" value="18、身体困重"> 18、身体困重</label>
+       <label><input type="checkbox" name="symptom" value="19、大便稀"> 19、大便稀</label>
+       <label><input type="checkbox" name="symptom" value="20、腹胀腹泻"> 20、腹胀腹泻</label>
+       <label><input type="checkbox" name="symptom" value="21、头脑昏沉"> 21、头脑昏沉</label>
+       <label><input type="checkbox" name="symptom" value="22、面部长痘"> 22、面部长痘</label>
+       <label><input type="checkbox" name="symptom" value="23、小肚子大"> 23、小肚子大</label>
+       <label><input type="checkbox" name="symptom" value="24、嗜睡"> 24、嗜睡</label>
+       <label><input type="checkbox" name="symptom" value="25、口腻不渴"> 25、口腻不渴</label>
+       <label><input type="checkbox" name="symptom" value="26、吃饭不香"> 26、吃饭不香</label>
+       <label><input type="checkbox" name="symptom" value="27、恶心"> 27、恶心</label>
+       <label><input type="checkbox" name="symptom" value="28、妇科炎症"> 28、妇科炎症</label>
+       <label><input type="checkbox" name="symptom" value="29、耳内潮湿"> 29、耳内潮湿</label>
+       <label><input type="checkbox" name="symptom" value="30、肌肉酸痛"> 30、肌肉酸痛</label>
+       <label><input type="checkbox" name="symptom" value="31、关节酸胀"> 31、关节酸胀</label>
+       <label><input type="checkbox" name="symptom" value="32、大便黏腻"> 32、大便黏腻</label>
+       <label><input type="checkbox" name="symptom" value="33、小便浑浊"> 33、小便浑浊</label>
+       <label><input type="checkbox" name="symptom" value="34、头发油腻"> 34、头发油腻</label>
+       <label><input type="checkbox" name="symptom" value="35、打鼾"> 35、打鼾</label>
+       <label><input type="checkbox" name="symptom" value="36、带下量多"> 36、带下量多</label>
+       <label><input type="checkbox" name="symptom" value="37、湿疹"> 37、湿疹</label>
+       <label><input type="checkbox" name="symptom" value="38、皮肤瘙痒"> 38、皮肤瘙痒</label>
+       <label><input type="checkbox" name="symptom" value="39、脸上出油"> 39、脸上出油</label>
+       <label><input type="checkbox" name="symptom" value="40、前胸后背长痘"> 40、前胸后背长痘</label>
+       <label><input type="checkbox" name="symptom" value="41、虚胖"> 41、虚胖</label>
+       <label><input type="checkbox" name="symptom" value="42、头晕"> 42、头晕</label>
+       <label><input type="checkbox" name="symptom" value="43、头顶痛"> 43、头顶痛</label>
+       <label><input type="checkbox" name="symptom" value="44、头两侧痛"> 44、头两侧痛</label>
+       <label><input type="checkbox" name="symptom" value="45、眼花"> 45、眼花</label>
+       <label><input type="checkbox" name="symptom" value="46、指甲凹陷"> 46、指甲凹陷</label>
+       <label><input type="checkbox" name="symptom" value="47、手抖"> 47、手抖</label>
+       <label><input type="checkbox" name="symptom" value="48、视力减退"> 48、视力减退</label>
+       <label><input type="checkbox" name="symptom" value="49、指甲无光泽"> 49、指甲无光泽</label>
+       <label><input type="checkbox" name="symptom" value="50、胁肋疼痛"> 50、胁肋疼痛</label>
+       <label><input type="checkbox" name="symptom" value="51、面部烘热"> 51、面部烘热</label>
+       <label><input type="checkbox" name="symptom" value="52、1 - 3点醒"> 52、1 - 3 点醒</label>
+       <label><input type="checkbox" name="symptom" value="53、眼屎多"> 53、眼屎多</label>
+       <label><input type="checkbox" name="symptom" value="54、经常叹气"> 54、经常叹气</label>
+       <label><input type="checkbox" name="symptom" value="55、少腹胀痛"> 55、少腹胀痛</label>
+       <label><input type="checkbox" name="symptom" value="56、乳房胀痛"> 56、乳房胀痛</label>
+       <label><input type="checkbox" name="symptom" value="57、痛经拒按"> 57、痛经拒按</label>
+       <label><input type="checkbox" name="symptom" value="58、黄褐斑"> 58、黄褐斑</label>
+       <label><input type="checkbox" name="symptom" value="59、血痣增多"> 59、血痣增多</label>
+       <label><input type="checkbox" name="symptom" value="60、口苦"> 60、口苦</label>
+       <label><input type="checkbox" name="symptom" value="61、急躁易怒"> 61、急躁易怒</label>
+       <label><input type="checkbox" name="symptom" value="62、失眠多梦"> 62、失眠多梦</label>
+       <label><input type="checkbox" name="symptom" value="63、饮酒"> 63、饮酒</label>
+       <label><input type="checkbox" name="symptom" value="64、眼底黄斑"> 64、眼底黄斑</label>
+       <label><input type="checkbox" name="symptom" value="65、半月痕少"> 65、半月痕少</label>
+       <label><input type="checkbox" name="symptom" value="66、吃得少"> 66、吃得少</label>
+       <label><input type="checkbox" name="symptom" value="67、不消化"> 67、不消化</label>
+       <label><input type="checkbox" name="symptom" value="68、肌肉无力"> 68、肌肉无力</label>
+       <label><input type="checkbox" name="symptom" value="69、胃下垂"> 69、胃下垂</label>
+       <label><input type="checkbox" name="symptom" value="70、神疲乏力"> 70、神疲乏力</label>
+       <label><input type="checkbox" name="symptom" value="71、口臭"> 71、口臭</label>
+       <label><input type="checkbox" name="symptom" value="72、浮肿"> 72、浮肿</label>
+       <label><input type="checkbox" name="symptom" value="73、便意频数"> 73、便意频数</label>
+       <label><input type="checkbox" name="symptom" value="74、肛门重坠"> 74、肛门重坠</label>
+       <label><input type="checkbox" name="symptom" value="75、久泻不止"> 75、久泻不止</label>
+       <label><input type="checkbox" name="symptom" value="76、嘴巴淡"> 76、嘴巴淡</label>
+       <label><input type="checkbox" name="symptom" value="77、不爱喝水"> 77、不爱喝水</label>
+       <label><input type="checkbox" name="symptom" value="78、齿痕舌"> 78、齿痕舌</label>
+       <label><input type="checkbox" name="symptom" value="79、肠鸣"> 79、肠鸣</label>
+       <label><input type="checkbox" name="symptom" value="80、腹痛"> 80、腹痛</label>
+       <label><input type="checkbox" name="symptom" value="81、打嗝"> 81、打嗝</label>
+       <label><input type="checkbox" name="symptom" value="82、嗳腐吞酸"> 82、嗳腐吞酸</label>
+       <label><input type="checkbox" name="symptom" value="83、咳嗽无痰"> 83、咳嗽无痰</label>
+       <label><input type="checkbox" name="symptom" value="84、哮喘"> 84、哮喘</label>
+       <label><input type="checkbox" name="symptom" value="85、喘息短气"> 85、喘息短气</label>
+       <label><input type="checkbox" name="symptom" value="86、反复低烧"> 86、反复低烧</label>
+       <label><input type="checkbox" name="symptom" value="87、鼻痒"> 87、鼻痒</label>
+       <label><input type="checkbox" name="symptom" value="88、流鼻血"> 88、流鼻血</label>
+       <label><input type="checkbox" name="symptom" value="89、易过敏"> 89、易过敏</label>
+       <label><input type="checkbox" name="symptom" value="90、咳嗽有痰"> 90、咳嗽有痰</label>
+       <label><input type="checkbox" name="symptom" value="91、声音嘶哑"> 91、声音嘶哑</label>
+       <label><input type="checkbox" name="symptom" value="92、鼻塞"> 92、鼻塞</label>
+       <label><input type="checkbox" name="symptom" value="93、喉痒"> 93、喉痒</label>
+       <label><input type="checkbox" name="symptom" value="94、喷嚏"> 94、喷嚏</label>
+       <label><input type="checkbox" name="symptom" value="95、鼻屎多"> 95、鼻屎多</label>
+       <label><input type="checkbox" name="symptom" value="96、鼻炎"> 96、鼻炎</label>
+       <label><input type="checkbox" name="symptom" value="97、痰粘难出"> 97、痰粘难出</label>
+       <label><input type="checkbox" name="symptom" value="98、全身酸痛"> 98、全身酸痛</label>
+       <label><input type="checkbox" name="symptom" value="99、恶寒发热"> 99、恶寒发热</label>
+       <label><input type="checkbox" name="symptom" value="100、易感冒"> 100、易感冒</label>
+       <label><input type="checkbox" name="symptom" value="101、咽喉肿痛"> 101、咽喉肿痛</label>
+       <label><input type="checkbox" name="symptom" value="102、疱疹性咽炎"> 102、疱疹性咽炎</label>
+       <label><input type="checkbox" name="symptom" value="103、免疫力低"> 103、免疫力低</label>
+       <label><input type="checkbox" name="symptom" value="104、痰少而黄"> 104、痰少而黄</label>
+       <label><input type="checkbox" name="symptom" value="105、流浊涕"> 105、流浊涕</label>
+       <label><input type="checkbox" name="symptom" value="106、流清涕"> 106、流清涕</label>
+       <label><input type="checkbox" name="symptom" value="107、发烧"> 107、发烧</label>
+       <label><input type="checkbox" name="symptom" value="108、鼻干"> 108、鼻干</label>
+       <label><input type="checkbox" name="symptom" value="109、3 - 5点咳嗽"> 109、3 - 5 点咳嗽</label>
+       <label><input type="checkbox" name="symptom" value="110、面色发黑"> 110、面色发黑</label>
+       <label><input type="checkbox" name="symptom" value="111、精神不振"> 111、精神不振</label>
+       <label><input type="checkbox" name="symptom" value="112、小便频数清长"> 112、小便频数清长</label>
+       <label><input type="checkbox" name="symptom" value="113、牙齿松动"> 113、牙齿松动</label>
+       <label><input type="checkbox" name="symptom" value="114、崩漏"> 114、崩漏</label>
+       <label><input type="checkbox" name="symptom" value="115、成人早衰"> 115、成人早衰</label>
+       <label><input type="checkbox" name="symptom" value="116、尿后余沥不尽"> 116、尿后余沥不尽</label>
+       <label><input type="checkbox" name="symptom" value="117、备孕不上"> 117、备孕不上</label>
+       <label><input type="checkbox" name="symptom" value="118、头发干枯"> 118、头发干枯</label>
+       <label><input type="checkbox" name="symptom" value="119、腰膝酸软"> 119、腰膝酸软</label>
+       <label><input type="checkbox" name="symptom" value="120、性欲减退"> 120、性欲减退</label>
+       <label><input type="checkbox" name="symptom" value="121、夜尿频多"> 121、夜尿频多</label>
+       <label><input type="checkbox" name="symptom" value="122、掉发"> 122、掉发</label>
+       <label><input type="checkbox" name="symptom" value="123、健忘"> 123、健忘</label>
+       <label><input type="checkbox" name="symptom" value="124、精神恍惚"> 124、精神恍惚</label>
+       <label><input type="checkbox" name="symptom" value="125、遗尿"> 125、遗尿</label>
+       <label><input type="checkbox" name="symptom" value="126、流产"> 126、流产</label>
+       <label><input type="checkbox" name="symptom" value="127、骨软无力"> 127、骨软无力</label>
+       <label><input type="checkbox" name="symptom" value="128、畏寒肢冷"> 128、畏寒肢冷</label>
+       <label><input type="checkbox" name="symptom" value="129、宫寒不孕"> 129、宫寒不孕</label>
+       <label><input type="checkbox" name="symptom" value="130、耳鸣"> 130、耳鸣</label>
+       <label><input type="checkbox" name="symptom" value="131、早生白发"> 131、早生白发</label>
+       <label><input type="checkbox" name="symptom" value="132、骨蒸潮热"> 132、骨蒸潮热</label>
+       <label><input type="checkbox" name="symptom" value="133、神情呆钝"> 133、神情呆钝</label>
+       <label><input type="checkbox" name="symptom" value="134、小便失禁"> 134、小便失禁</label>
+       <label><input type="checkbox" name="symptom" value="135、产后"> 135、产后</label>
+       <label><input type="checkbox" name="symptom" value="136、眼皮易肿"> 136、眼皮易肿</label>
+       <label><input type="checkbox" name="symptom" value="137、下肢肿胀"> 137、下肢肿胀</label>
+       <label><input type="checkbox" name="symptom" value="138、凌晨3-5点容易泄泻"> 138、凌晨3-5点容易泄泻</label>
+       <label><input type="checkbox" name="symptom" value="139、耳蒙"> 139、耳蒙</label>
+       <label><input type="checkbox" name="symptom" value="140、经少经闭"> 140、经少经闭</label>
+       <label><input type="checkbox" name="symptom" value="141、午后颧红"> 141、午后颧红</label>
+       <label><input type="checkbox" name="symptom" value="142、动作迟缓"> 142、动作迟缓</label>
+       <label><input type="checkbox" name="symptom" value="143、带下清稀量多"> 143、带下清稀量多</label>
+       <label><input type="checkbox" name="symptom" value="144、阴道干涩"> 144、阴道干涩</label>
+       <label><input type="checkbox" name="symptom" value="145、体力衰退"> 145、体力衰退</label>
+       <label><input type="checkbox" name="symptom" value="146、气短声低"> 146、气短声低</label>
+       <label><input type="checkbox" name="symptom" value="147、面色萎黄"> 147、面色萎黄</label>
+       <label><input type="checkbox" name="symptom" value="148、月经延迟"> 148、月经延迟</label>
+       <label><input type="checkbox" name="symptom" value="149、少气懒言"> 149、少气懒言</label>
+       <label><input type="checkbox" name="symptom" value="150、手足麻木"> 150、手足麻木</label>
+       <label><input type="checkbox" name="symptom" value="151、月经量大"> 151、月经量大</label>
+       <label><input type="checkbox" name="symptom" value="152、手心出汗"> 152、手心出汗</label>
+       <label><input type="checkbox" name="symptom" value="153、月经血块"> 153、月经血块</label>
+       <label><input type="checkbox" name="symptom" value="154、月经量少"> 154、月经量少</label>
+       <label><input type="checkbox" name="symptom" value="155、脚心出汗"> 155、脚心出汗</label>
+       <label><input type="checkbox" name="symptom" value="156、月经提前"> 156、月经提前</label>
+       <label><input type="checkbox" name="symptom" value="157、月经色淡"> 157、月经色淡</label>
+
+        <input type="button" value="提交" style="width: 60px; height: 60px; display: flex; justify-content: center; align-items: center;" onclick="showSelectedSymptoms()">
+    </form>
+
+    <div id="result-container">
+        <table id="symptomTable">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>症状</th>
+                    <th>症状调理的方向</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        // 症状与对应问题的映射
+        var symptomLetters = {
+                        "1、形体消瘦": ["阴虚→(铁皮)"],
+            "2、口燥咽干": ["阴虚→(铁皮)"],
+            "3、两颧潮红": ["阴虚→(铁皮)"],
+            "4、嘴巴起皮": ["阴虚→(铁皮)"],
+            "5、易饥饿": ["阴虚→(铁皮)"],
+            "6、小便短黄": ["阴虚→(铁皮)"],
+            "7、大便干结": ["阴虚→(铁皮)"],
+            "8、舌质红": ["阴虚→(铁皮)"],
+            "9、眼睛干涩": ["阴虚→(铁皮)"],
+            "10、脚心发热": ["阴虚→(铁皮)"],
+            "11、心口烦热": ["阴虚→(铁皮)"],
+            "12、潮热": ["阴虚→(铁皮)"],
+            "13、手足脱皮": ["阴虚→(铁皮)"],
+            "14、手心发热": ["阴虚→(铁皮)"],
+            "15、睡觉出汗": ["阴虚→(铁皮)"],
+            "16、皮肤干燥": ["阴虚→(铁皮)"],
+            "17、心慌心悸": ["阴虚→(铁皮)"],
+            "18、身体困重": ["湿气→(玉仁)"],
+            "19、大便稀": ["湿气→(玉仁)"],
+            "20、腹胀腹泻": ["湿气→(玉仁)"],
+            "21、头脑昏沉": ["湿气→(玉仁)"],
+            "22、面部长痘": ["湿气→(玉仁)"],
+            "23、小肚子大": ["湿气→(玉仁)"],
+            "24、嗜睡": ["湿气→(玉仁)"],
+            "25、口腻不渴": ["湿气→(玉仁)"],
+            "26、吃饭不香": ["湿气→(玉仁)"],
+            "27、恶心": ["湿气→(玉仁)"],
+            "28、妇科炎症": ["湿气→(玉仁)"],
+            "29、耳内潮湿": ["湿气→(玉仁)"],
+            "30、肌肉酸痛": ["湿气→(玉仁)"],
+            "31、关节酸胀": ["湿气→(玉仁)"],
+            "32、大便黏腻": ["湿气→(玉仁)"],
+            "33、小便浑浊": ["湿气→(玉仁)"],
+            "34、头发油腻": ["湿气→(玉仁)"],
+            "35、打鼾": ["湿气→(玉仁)"],
+            "36、带下量多": ["湿气→(玉仁)"],
+            "37、湿疹": ["湿气→(玉仁)"],
+            "38、皮肤瘙痒": ["湿气→(玉仁)"],
+            "39、脸上出油": ["湿气→(玉仁)"],
+            "40、前胸后背长痘": ["湿气→(玉仁)"],
+            "41、虚胖": ["湿气→(玉仁)"],
+            "42、头晕": ["肝胆→(玉蚕)"],
+            "43、头顶痛": ["肝胆→(玉蚕)"],
+            "44、头两侧痛": ["肝胆→(玉蚕)"],
+            "45、眼花": ["肝胆→(玉蚕)"],
+            "46、指甲凹陷": ["肝胆→(玉蚕)"],
+            "47、手抖": ["肝胆→(玉蚕)"],
+            "48、视力减退": ["肝胆→(玉蚕)"],
+            "49、指甲无光泽": ["肝胆→(玉蚕)"],
+            "50、胁肋疼痛": ["肝胆→(玉蚕)"],
+            "51、面部烘热": ["肝胆→(玉蚕)"],
+            "52、1 - 3点醒": ["肝胆→(玉蚕)"],
+            "53、眼屎多": ["肝胆→(玉蚕)"],
+            "54、经常叹气": ["肝胆→(玉蚕)"],
+            "55、少腹胀痛": ["肝胆→(玉蚕)"],
+            "56、乳房胀痛": ["肝胆→(玉蚕)"],
+            "57、痛经拒按": ["肝胆→(玉蚕)"],
+            "58、黄褐斑": ["肝胆→(玉蚕)"],
+            "59、血痣增多": ["肝胆→(玉蚕)"],
+            "60、口苦": ["肝胆→(玉蚕)"],
+            "61、急躁易怒": ["肝胆→(玉蚕)"],
+            "62、失眠多梦": ["肝胆→(玉蚕)"],
+            "63、饮酒": ["肝胆→(玉蚕)"],
+            "64、眼底黄斑": ["肝胆→(玉蚕)"],
+            "65、半月痕少": ["肝胆→(玉蚕)"],
+            "66、吃得少": ["脾胃→(大脾)"],
+            "67、不消化": ["脾胃→(大脾)"],
+            "68、肌肉无力": ["脾胃→(大脾)"],
+            "69、胃下垂": ["脾胃→(大脾)"],
+            "70、神疲乏力": ["脾胃→(大脾)"],
+            "71、口臭": ["脾胃→(大脾)"],
+            "72、浮肿": ["脾胃→(大脾)"],
+            "73、便意频数": ["脾胃→(大脾)"],
+            "74、肛门重坠": ["脾胃→(大脾)"],
+            "75、久泻不止": ["脾胃→(大脾)"],
+            "76、嘴巴淡": ["脾胃→(大脾)"],
+            "77、不爱喝水": ["脾胃→(大脾)"],
+            "78、齿痕舌": ["脾胃→(大脾)"],
+            "79、肠鸣": ["脾胃→(大脾)"],
+            "80、腹痛": ["脾胃→(大脾)"],
+            "81、打嗝": ["脾胃→(大脾)"],
+            "82、嗳腐吞酸": ["脾胃→(大脾)"],
+            "83、咳嗽无痰": ["肺→(玉竹)"],
+            "84、哮喘": ["肺→(玉竹)"],
+            "85、喘息短气": ["肺→(玉竹)"],
+            "86、反复低烧": ["肺→(玉竹)"],
+            "87、鼻痒": ["肺→(玉竹)"],
+            "88、流鼻血": ["肺→(玉竹)"],
+            "89、易过敏": ["肺→(玉竹)"],
+            "90、咳嗽有痰": ["肺→(玉竹)"],
+            "91、声音嘶哑": ["肺→(玉竹)"],
+            "92、鼻塞": ["肺→(玉竹)"],
+            "93、喉痒": ["肺→(玉竹)"],
+            "94、喷嚏": ["肺→(玉竹)"],
+            "95、鼻屎多": ["肺→(玉竹)"],
+            "96、鼻炎": ["肺→(玉竹)"],
+            "97、痰粘难出": ["肺→(玉竹)"],
+            "98、全身酸痛": ["肺→(玉竹)"],
+            "99、恶寒发热": ["肺→(玉竹)"],
+            "100、易感冒": ["肺→(玉竹)"],
+            "101、咽喉肿痛": ["肺→(玉竹)"],
+            "102、疱疹性咽炎": ["肺→(玉竹)"],
+            "103、免疫力低": ["肺→(玉竹)"],
+            "104、痰少而黄": ["肺→(玉竹)"],
+            "105、流浊涕": ["肺→(玉竹)"],
+            "106、流清涕": ["肺→(玉竹)"],
+            "107、发烧": ["肺→(玉竹)"],
+            "108、鼻干": ["肺→(玉竹)"],
+            "109、3 - 5点咳嗽": ["肺→(玉竹)"],
+            "110、面色发黑": ["肾→(甚元)"],
+            "111、精神不振": ["肾→(甚元)"],
+            "112、小便频数清长": ["肾→(甚元)"],
+            "113、牙齿松动": ["肾→(甚元)"],
+            "114、崩漏": ["肾→(甚元)"],
+            "115、成人早衰": ["肾→(甚元)"],
+            "116、尿后余沥不尽": ["肾→(甚元)"],
+            "117、备孕不上": ["肾→(甚元)"],
+            "118、头发干枯": ["肾→(甚元)"],
+            "119、腰膝酸软": ["肾→(甚元)"],
+            "120、性欲减退": ["肾→(甚元)"],
+            "121、夜尿频多": ["肾→(甚元)"],
+            "122、掉发": ["肾→(甚元)"],
+            "123、健忘": ["肾→(甚元)"],
+            "124、精神恍惚": ["肾→(甚元)"],
+            "125、遗尿": ["肾→(甚元)"],
+            "126、流产": ["肾→(甚元)"],
+            "127、骨软无力": ["肾→(甚元)"],
+            "128、畏寒肢冷": ["肾→(甚元)"],
+            "129、宫寒不孕": ["肾→(甚元)"],
+            "130、耳鸣": ["肾→(甚元)"],
+            "131、早生白发": ["肾→(甚元)"],
+            "132、骨蒸潮热": ["肾→(甚元)"],
+            "133、神情呆钝": ["肾→(甚元)"],
+            "134、小便失禁": ["肾→(甚元)"],
+            "135、产后": ["肾→(甚元)"],
+            "136、眼皮易肿": ["肾→(甚元)"],
+            "137、下肢肿胀": ["肾→(甚元)"],
+            "138、凌晨3-5点容易泄泻": ["肾→(甚元)"],
+            "139、耳蒙": ["肾→(甚元)"],
+            "140、经少经闭": ["肾→(甚元)"],
+            "141、午后颧红": ["肾→(甚元)"],
+            "142、动作迟缓": ["肾→(甚元)"],
+            "143、带下清稀量多": ["肾→(甚元)"],
+            "144、阴道干涩": ["肾→(甚元)"],
+            "145、体力衰退": ["肾→(甚元)"],
+            "146、气短声低": ["气血→(红玉)"],
+            "147、面色萎黄": ["气血→(红玉)"],
+            "148、月经延迟": ["气血→(红玉)"],
+            "149、少气懒言": ["气血→(红玉)"],
+            "150、手足麻木": ["气血→(红玉)"],
+            "151、月经量大": ["气血→(红玉)"],
+            "152、手心出汗": ["气血→(红玉)"],
+            "153、月经血块": ["气血→(红玉)"],
+            "154、月经量少": ["气血→(红玉)"],
+            "155、脚心出汗": ["气血→(红玉)"],
+            "156、月经提前": ["气血→(红玉)"],
+            "157、月经色淡": ["气血→(红玉)"],
+
+        };
+
+        function showSelectedSymptoms() {
+            // 获取所有勾选的症状
+            var selectedSymptoms = [];
+            var symptoms = document.getElementsByName('symptom');
+            for (var i = 0; i < symptoms.length; i++) {
+                if (symptoms[i].checked) {
+                    selectedSymptoms.push(symptoms[i].value);
+                }
+            }
+
+            // 如果没有勾选症状，显示提示信息
+            if (selectedSymptoms.length === 0) {
+                alert("请勾选至少一个症状");
+                document.getElementById('symptomTable').style.display = "none";
+                return;
+            }
+
+            // 填充表格
+            var tableBody = document.querySelector("#symptomTable tbody");
+            tableBody.innerHTML = ""; // 清空表格内容
+            selectedSymptoms.forEach(function(symptom, index) {
+                var row = document.createElement("tr");
+
+                var cell1 = document.createElement("td");
+                cell1.textContent = index + 1; // 编号
+                row.appendChild(cell1);
+
+                var cell2 = document.createElement("td");
+                cell2.textContent = symptom; // 症状
+                row.appendChild(cell2);
+
+                var cell3 = document.createElement("td");
+                cell3.textContent = symptomLetters[symptom].join(", "); // 症状调理的方向
+                row.appendChild(cell3);
+
+                tableBody.appendChild(row);
+            });
+
+            // 显示结果表格
+            document.getElementById('symptomTable').style.display = "table";
+        }
+    </script>
+</body>
+  <img src="images/jieguo02.jpg" alt="图片描述" />
+  <div class="bottom-row">
+        <img class="details-button01" src="images/kuaidi.jpg" alt="图片描述">
+
+    <!-- 原来的模态框内容被移除，因为点击图片后不再需要模态框 -->
+    <!--
+    <div id="myModa10" class="moda10">
+        <span class="close" onclick="closeModa10()">&times;</span>
+        <div class="moda10-content">
+            <img src="images/daweixin.png" alt="Product Image">
+        </div>
+    </div>
+    -->
+
+    <!-- 删除了 openModa10 和 closeModa10 函数，因为不再需要打开或关闭模态框 -->
+</div>
+    <!-- 悬浮按钮 -->
+    <button class="fixed-button" id="registerButton"></button>
+
+    <!-- 弹窗结构 -->
+    <div class="popup-mask" id="popupMask"></div>
+    <div class="popup-container" id="popupContainer">
+        <button class="close-btn" onclick="closePopup()">×</button>
+        <iframe class="popup-iframe" id="popupIframe"></iframe>
+    </div>
+
+    <script>
+        // 打开弹窗
+        document.getElementById('registerButton').addEventListener('click', function() {
+            const mask = document.getElementById('popupMask');
+            const container = document.getElementById('popupContainer');
+            const iframe = document.getElementById('popupIframe');
+            
+            // 加载目标网页
+            iframe.src = 'https://huqingyutang-2024.github.io/deepseek/'; // 替换为实际地址
+            mask.style.display = 'block';
+            container.style.display = 'block';
+            
+            // 禁止背景滚动
+            document.body.style.overflow = 'hidden';
+        });
+
+        // 关闭弹窗
+        function closePopup() {
+            const mask = document.getElementById('popupMask');
+            const container = document.getElementById('popupContainer');
+            const iframe = document.getElementById('popupIframe');
+            
+            iframe.src = '';
+            mask.style.display = 'none';
+            container.style.display = 'none';
+            
+            // 恢复背景滚动
+            document.body.style.overflow = 'auto';
+        }
+
+        // 点击遮罩层关闭
+        document.getElementById('popupMask').addEventListener('click', closePopup);
+    </script>
+</html>
